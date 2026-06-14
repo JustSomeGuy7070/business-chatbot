@@ -14,7 +14,7 @@ function App() {
   const [input, setInput] = useState("");
   const [isBotTyping, setIsBotTyping] = useState(false);
 
-  function handleSendMessage() {
+  async function handleSendMessage() {
     if (input.trim() === "") return;
 
     const userMessage = {
@@ -26,15 +26,35 @@ function App() {
     setInput("");
     setIsBotTyping(true);
 
-    setTimeout(() => {
+    try {
+      const response = await fetch("http://localhost:5000/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: userMessage.text,
+        }),
+      });
+
+      const data = await response.json();
+
       const botMessage = {
         sender: "bot",
-        text: `You said "${userMessage.text}".`,
+        text: data.reply,
       };
 
       setMessages((prevMessages) => [...prevMessages, botMessage]);
+    } catch (error) {
+      const errorMessage = {
+        sender: "bot",
+        text: "Sorry, something went wrong. Please try again.",
+      };
+
+      setMessages((prevMessages) => [...prevMessages, errorMessage]);
+    } finally {
       setIsBotTyping(false);
-    }, 1000);
+    }
   }
 
   return (
