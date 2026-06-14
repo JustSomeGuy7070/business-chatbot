@@ -12,6 +12,7 @@ function App() {
   ]);
 
   const [input, setInput] = useState("");
+  const [isBotTyping, setIsBotTyping] = useState(false);
 
   function handleSendMessage() {
     if (input.trim() === "") return;
@@ -21,20 +22,26 @@ function App() {
       text: input,
     };
 
-    const botMessage = {
-      sender: "bot",
-      text: `You said "${input}".`,
-    };
-
-    setMessages([...messages, userMessage, botMessage]);
+    setMessages((prevMessages) => [...prevMessages, userMessage]);
     setInput("");
+    setIsBotTyping(true);
+
+    setTimeout(() => {
+      const botMessage = {
+        sender: "bot",
+        text: `You said "${userMessage.text}".`,
+      };
+
+      setMessages((prevMessages) => [...prevMessages, botMessage]);
+      setIsBotTyping(false);
+    }, 1000);
   }
 
   return (
     <div className="app">
       <div className="chat-container">
    
-        <MessageList messages={messages} />
+        <MessageList messages={messages} isBotTyping={isBotTyping} />
 
         <ChatInput
           input={input}

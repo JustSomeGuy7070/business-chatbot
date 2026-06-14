@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import Message from "./Message";
 
-function MessageList({ messages }) {
+function MessageList({ messages, isBotTyping }) {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
@@ -23,6 +23,8 @@ function MessageList({ messages }) {
           text={message.text}
         />
       ))}
+
+      {isBotTyping && <div className="message bot typing">Bot is typing...</div>}
 
       <div ref={messagesEndRef} />
     </div>

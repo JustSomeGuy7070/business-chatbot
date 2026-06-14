@@ -45,6 +45,11 @@
   align-self: flex-end;
 }
 
+.message.typing {
+  font-style: italic;
+  opacity: 0.7;
+}
+
 .input-area {
   display: flex;
   gap: 10px;
