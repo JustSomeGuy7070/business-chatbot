@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import businessConfig from "./data/businessConfig.js";
 
 const app = express();
 const PORT = 5000;
@@ -13,8 +14,35 @@ app.get("/", (req, res) => {
 
 app.post("/api/chat", (req, res) => {
   const { message } = req.body;
+  const lowerMessage = message.toLowerCase();
 
-  const botReply = `Backend received your message: "${message}"`;
+  let botReply = `Thanks for your message. ${businessConfig.businessName} can help with tax, bookkeeping, company registration, payroll, and SARS compliance.`;
+
+  if (lowerMessage.includes("service")) {
+    botReply = `${businessConfig.businessName} offers: ${businessConfig.services.join(", ")}.`;
+  }
+
+  if (
+    lowerMessage.includes("contact") ||
+    lowerMessage.includes("phone") ||
+    lowerMessage.includes("email")
+  ) {
+    botReply = `You can contact ${businessConfig.businessName} on ${businessConfig.contact.phone} or email ${businessConfig.contact.email}.`;
+  }
+
+  if (lowerMessage.includes("hour") || lowerMessage.includes("open")) {
+    botReply = `${businessConfig.businessName} is open ${businessConfig.contact.hours}.`;
+  }
+
+  if (lowerMessage.includes("tax")) {
+    botReply =
+      "For tax returns, you usually need your IRP5, medical aid tax certificate, retirement annuity certificate, proof of expenses, and income-related documents.";
+  }
+
+  if (lowerMessage.includes("company registration")) {
+    botReply =
+      "Yes, we assist with company registration and can guide you through the required documents and next steps.";
+  }
 
   res.json({
     reply: botReply,

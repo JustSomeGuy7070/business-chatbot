@@ -45,7 +45,7 @@ function App() {
       };
 
       setMessages((prevMessages) => [...prevMessages, botMessage]);
-    } catch (error) {
+    } catch {
       const errorMessage = {
         sender: "bot",
         text: "Sorry, something went wrong. Please try again.",
@@ -60,7 +60,6 @@ function App() {
   return (
     <div className="app">
       <div className="chat-container">
-   
         <MessageList messages={messages} isBotTyping={isBotTyping} />
 
         <ChatInput
