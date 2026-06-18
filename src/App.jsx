@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import { sendMessage } from "./services/chatService";
 import MessageList from "./components/MessageList";
 import ChatInput from "./components/ChatInput";
 
@@ -27,17 +28,8 @@ function App() {
     setIsBotTyping(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: userMessage.text,
-        }),
-      });
-
-      const data = await response.json();
+      
+      const data = await sendMessage(input);
 
       const botMessage = {
         sender: "bot",
