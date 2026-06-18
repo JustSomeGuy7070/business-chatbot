@@ -21,22 +21,22 @@ const businessConfig = {
 
   faqs: [
     {
-      question: "What documents do I need for tax returns?",
+      keywords: ["tax", "tax return", "sars", "documents"],
       answer:
         "You usually need your IRP5, medical aid tax certificate, retirement annuity certificate, proof of expenses, and any income-related documents.",
     },
     {
-      question: "Do you help with company registration?",
+      keywords: ["company", "registration", "register business"],
       answer:
         "Yes, we assist with company registration and can guide you through the required documents and next steps.",
     },
     {
-      question: "How do I book a consultation?",
+      keywords: ["book", "appointment", "consultation"],
       answer:
         "You can book a consultation by calling 041 123 4567 or emailing info@brightbooks.co.za.",
     },
     {
-      question: "Do you offer monthly bookkeeping?",
+      keywords: ["bookkeeping", "monthly bookkeeping"],
       answer:
         "Yes, we offer monthly bookkeeping services for small businesses, freelancers, and registered companies.",
     },

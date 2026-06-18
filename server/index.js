@@ -14,7 +14,20 @@ app.get("/", (req, res) => {
 
 app.post("/api/chat", (req, res) => {
   const { message } = req.body;
+
   const lowerMessage = message.toLowerCase();
+
+  const matchingFaq = businessConfig.faqs.find((faq) =>
+    faq.keywords.some((keyword) =>
+      lowerMessage.includes(keyword.toLowerCase())
+    )
+  );
+
+  if (matchingFaq) {
+    return res.json({
+      reply: matchingFaq.answer,
+    });
+  }
 
   let botReply = `Thanks for your message. ${businessConfig.businessName} can help with tax, bookkeeping, company registration, payroll, and SARS compliance.`;
 
