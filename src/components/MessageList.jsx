@@ -10,18 +10,20 @@ function MessageList({ messages, isBotTyping }) {
     });
   }, [messages]);
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
   return (
     <div className="messages">
       {messages.map((message, index) => (
-        <Message key={index} sender={message.sender} text={message.text} />
+        <Message
+          key={index}
+          role={message.role}
+          content={message.content}
+        />
       ))}
 
       {isBotTyping && (
-        <div className="message bot typing">Bot is typing...</div>
+        <div className="message bot typing">
+          Bot is typing...
+        </div>
       )}
 
       <div ref={messagesEndRef} />

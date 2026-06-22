@@ -1,4 +1,4 @@
-function ChatInput({ input, setInput, handleSendMessage }) {
+function ChatInput({ input, setInput, onSend }) {
   return (
     <div className="input-area">
       <input
@@ -8,12 +8,12 @@ function ChatInput({ input, setInput, handleSendMessage }) {
         onChange={(event) => setInput(event.target.value)}
         onKeyDown={(event) => {
           if (event.key === "Enter") {
-            handleSendMessage();
+            onSend();
           }
         }}
       />
 
-      <button onClick={handleSendMessage}>Send</button>
+      <button onClick={onSend}>Send</button>
     </div>
   );
 }

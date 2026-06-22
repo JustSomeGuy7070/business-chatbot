@@ -7,8 +7,8 @@ import ChatInput from "./components/ChatInput";
 function App() {
   const [messages, setMessages] = useState([
     {
-      sender: "bot",
-      text: "Hi! I'm your business assistant. How can I help you today?",
+      role: "bot",
+      content: "Hi! I'm your business assistant. How can I help you today?",
     },
   ]);
 
@@ -19,8 +19,8 @@ function App() {
     if (input.trim() === "") return;
 
     const userMessage = {
-      sender: "user",
-      text: input,
+      role: "user",
+      content: input,
     };
 
     setMessages((prevMessages) => [...prevMessages, userMessage]);
@@ -28,19 +28,18 @@ function App() {
     setIsBotTyping(true);
 
     try {
-      
       const data = await sendMessage(input);
 
       const botMessage = {
-        sender: "bot",
-        text: data.reply,
+        role: "bot",
+        content: data.reply,
       };
 
       setMessages((prevMessages) => [...prevMessages, botMessage]);
     } catch {
       const errorMessage = {
-        sender: "bot",
-        text: "Sorry, something went wrong. Please try again.",
+        role: "bot",
+        content: "Sorry, something went wrong. Please try again.",
       };
 
       setMessages((prevMessages) => [...prevMessages, errorMessage]);
@@ -57,7 +56,7 @@ function App() {
         <ChatInput
           input={input}
           setInput={setInput}
-          handleSendMessage={handleSendMessage}
+          onSend={handleSendMessage}
         />
       </div>
     </div>
