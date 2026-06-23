@@ -42,7 +42,7 @@ app.get("/", (req, res) => {
   res.send("Chatbot backend is running");
 });
 
-app.post("/api/chat", (req, res) => {
+app.post("/api/chat", async (req, res) => {
   const { message } = req.body;
 
   const lowerMessage = message.toLowerCase();
@@ -86,6 +86,21 @@ app.post("/api/chat", (req, res) => {
     botReply =
       "Yes, we assist with company registration and can guide you through the required documents and next steps.";
   }
+
+  const history = await readHistory();
+
+  history.push(
+    {
+      role: "user",
+      content: message,
+    },
+    {
+      role: "assistant",
+      content: botReply,
+    }
+  );
+
+    await writeHistory(history);
 
   res.json({
     reply: botReply,
