@@ -1,12 +1,42 @@
 import express from "express";
 import cors from "cors";
 import businessConfig from "./data/businessConfig.js";
+import fs from "fs/promises";
+import path from "path";
 
 const app = express();
 const PORT = 5000;
 
 app.use(cors());
 app.use(express.json());
+
+const historyPath = path.join(
+  process.cwd(),
+  "data",
+  "chatHistory.json"
+);
+
+async function readHistory() {
+  try {
+    const data = await fs.readFile(historyPath, "utf8");
+    return JSON.parse(data);
+  } catch (error) {
+    return [];
+  }
+}
+
+async function writeHistory(history) {
+  await fs.writeFile(
+    historyPath,
+    JSON.stringify(history, null, 2),
+    "utf8"
+  );
+}
+
+app.get("/api/history", async (req, res) => {
+  const history = await readHistory();
+  res.json(history);
+});
 
 app.get("/", (req, res) => {
   res.send("Chatbot backend is running");
