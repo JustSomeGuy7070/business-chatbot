@@ -42,6 +42,14 @@ app.get("/", (req, res) => {
   res.send("Chatbot backend is running");
 });
 
+app.delete("/api/history", async (req, res) => {
+  await writeHistory([]);
+
+  res.json({
+    message: "Chat history cleared",
+  });
+});
+
 app.post("/api/chat", async (req, res) => {
   const { message } = req.body;
 

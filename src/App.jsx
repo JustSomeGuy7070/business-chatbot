@@ -67,9 +67,33 @@ function App() {
     }
   }
 
+  async function handleClearChat() {
+    try {
+      await fetch("http://localhost:5000/api/history", {
+        method: "DELETE",
+      });
+
+      setMessages([
+        {
+          role: "assistant",
+          content:
+            "Hello! Welcome to ABC Accounting. How can I help you today?",
+        },
+      ]);
+    } catch (error) {
+      console.error("Failed to clear chat:", error);
+    }
+  }
+
   return (
     <div className="app">
       <div className="chat-container">
+         <button 
+         className="clear-chat-btn"
+         onClick={handleClearChat}>
+            Clear Chat
+          </button>
+
         <MessageList messages={messages} isBotTyping={isBotTyping} />
 
         <ChatInput
