@@ -1,19 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import { sendMessage } from "./services/chatService";
 import MessageList from "./components/MessageList";
 import ChatInput from "./components/ChatInput";
 
 function App() {
-  const [messages, setMessages] = useState([
-    {
-      role: "bot",
-      content: "Hi! I'm your business assistant. How can I help you today?",
-    },
-  ]);
+  const [messages, setMessages] = useState([]);
 
   const [input, setInput] = useState("");
   const [isBotTyping, setIsBotTyping] = useState(false);
+
+  useEffect(() => {
+    const loadHistory = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/history");
+        const history = await response.json();
+
+        if (history.length === 0) {
+          setMessages([
+            {
+              role: "assistant",
+              content: "Hello! Welcome to ABC Accounting. How can I help you today?",
+            },
+          ]);
+        } else {
+          setMessages(history);
+        }
+      } catch (error) {
+        console.error("Failed to load chat history:", error);
+      }
+    };
+
+    loadHistory();
+  }, []);
 
   async function handleSendMessage() {
     if (input.trim() === "") return;
@@ -31,14 +50,14 @@ function App() {
       const data = await sendMessage(input);
 
       const botMessage = {
-        role: "bot",
+        role: "assistant",
         content: data.reply,
       };
 
       setMessages((prevMessages) => [...prevMessages, botMessage]);
     } catch {
       const errorMessage = {
-        role: "bot",
+        role: "assistant",
         content: "Sorry, something went wrong. Please try again.",
       };
 
