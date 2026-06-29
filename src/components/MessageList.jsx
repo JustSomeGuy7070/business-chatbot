@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import Message from "./Message";
+import TypingIndicator from "./TypingIndicator";
 
 function MessageList({ messages, isBotTyping }) {
   const messagesEndRef = useRef(null);
@@ -20,11 +21,7 @@ function MessageList({ messages, isBotTyping }) {
         />
       ))}
 
-      {isBotTyping && (
-        <div className="message bot typing">
-          Bot is typing...
-        </div>
-      )}
+      {isBotTyping && <TypingIndicator />}
 
       <div ref={messagesEndRef} />
     </div>

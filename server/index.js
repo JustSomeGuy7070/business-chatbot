@@ -10,6 +10,10 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 const historyPath = path.join(
   process.cwd(),
   "data",
@@ -52,6 +56,8 @@ app.delete("/api/history", async (req, res) => {
 
 app.post("/api/chat", async (req, res) => {
   const { message } = req.body;
+
+  await delay(1500);
 
   const lowerMessage = message.toLowerCase();
 

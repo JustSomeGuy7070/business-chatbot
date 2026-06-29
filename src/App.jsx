@@ -34,6 +34,40 @@ function App() {
     loadHistory();
   }, []);
 
+  async function typeMessage(fullMessage) {
+  // Add an empty assistant message first
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      {
+        role: "assistant",
+        content: "",
+      },
+    ]);
+
+    let i = 0;
+
+    const interval = setInterval(() => {
+      i++;
+
+      setMessages((prevMessages) =>
+        prevMessages.map((message, index) => {
+          if (index === prevMessages.length - 1) {
+            return {
+              ...message,
+              content: fullMessage.slice(0, i),
+            };
+          }
+
+          return message;
+        })
+      );
+
+      if (i >= fullMessage.length) {
+        clearInterval(interval);
+      }
+    }, 30);
+  }
+
   async function handleSendMessage() {
     if (input.trim() === "") return;
 
@@ -49,12 +83,7 @@ function App() {
     try {
       const data = await sendMessage(input);
 
-      const botMessage = {
-        role: "assistant",
-        content: data.reply,
-      };
-
-      setMessages((prevMessages) => [...prevMessages, botMessage]);
+      await typeMessage(data.reply);
     } catch {
       const errorMessage = {
         role: "assistant",
