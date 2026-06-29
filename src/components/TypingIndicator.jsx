@@ -15,8 +15,10 @@ function TypingIndicator() {
   }, []);
 
   return (
-    <div className="message assistant typing">
-      Assistant is typing{dots}
+    <div className="message-row assistant">
+      <div className="message assistant typing">
+        Assistant is typing{dots}
+      </div>
     </div>
   );
 }

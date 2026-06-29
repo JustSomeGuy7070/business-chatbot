@@ -49,20 +49,37 @@
 }
 
 .message {
-  padding: 10px 14px;
-  border-radius: 12px;
   max-width: 75%;
+  padding: 14px 18px;
+  border-radius: 18px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+.message-row {
+  display: flex;
+  width: 100%;
+}
+
+.message-row.assistant {
+  justify-content: flex-start;
+}
+
+.message-row.user {
+  justify-content: flex-end;
 }
 
 .message.assistant {
-  background: #eef2ff;
-  align-self: flex-start;
+  background: white;
+  color: #1F2937;
+  border-bottom-left-radius: 6px;
 }
 
 .message.user {
-  background: #2563eb;
+  background: #2563EB;
   color: white;
-  align-self: flex-end;
+  border-bottom-right-radius: 6px;
 }
 
 .message.typing {
