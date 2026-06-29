@@ -117,11 +117,19 @@ function App() {
   return (
     <div className="app">
       <div className="chat-container">
-         <button 
-         className="clear-chat-btn"
-         onClick={handleClearChat}>
+        <div className="chat-header">
+          <div>
+            <h2>ABC Accounting</h2>
+            <p>Your virtual accounting assistant</p>
+          </div>
+
+          <button
+            className="clear-chat-btn"
+            onClick={handleClearChat}
+          >
             Clear Chat
           </button>
+        </div>
 
         <MessageList messages={messages} isBotTyping={isBotTyping} />
 
