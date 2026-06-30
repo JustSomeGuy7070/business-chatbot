@@ -15,27 +15,32 @@
   background: white;
   border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,.15);
+  box-shadow: 0 12px 35px rgba(0,0,0,.12);
 }
 
 .chat-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 20px;
-  background: #1E3A8A;
+  padding: 18px 22px;
+  background: linear-gradient(
+      135deg,
+      #1E3A8A,
+      #2563EB
+  );
   color: white;
 }
 
 .chat-header h2 {
   margin: 0;
-  font-size: 20px;
+  font-size: 22px;
+  font-weight: 700;
 }
 
 .chat-header p {
-  margin: 4px 0 0;
+  margin-top: 4px;
+  color: rgba(255,255,255,.85);
   font-size: 13px;
-  opacity: .8;
 }
 
 .messages {
@@ -45,7 +50,7 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  background: #F5F7FA;
+  background:#F9FAFB;
 }
 
 .message {
@@ -72,14 +77,18 @@
 
 .message.assistant {
   background: white;
+  border: 1px solid #E5E7EB;
   color: #1F2937;
-  border-bottom-left-radius: 6px;
 }
 
 .message.user {
-  background: #2563EB;
+  background:
+    linear-gradient(
+        135deg,
+        #2563EB,
+        #1D4ED8
+    );
   color: white;
-  border-bottom-right-radius: 6px;
 }
 
 .message.typing {
@@ -92,7 +101,8 @@
   gap: 10px;
   padding: 16px;
   background: white;
-  border-top: 1px solid #ddd;
+  border: 1px solid #D1D5DB;
+  transition: .2s;
 }
 
 .input-area input {
@@ -103,19 +113,30 @@
   font-size: 15px;
 }
 
+.input-area input:focus {
+  outline: none;
+  border-color: #2563EB;
+  box-shadow:
+      0 0 0 3px rgba(37,99,235,.15);
+}
+
 .input-area button {
-  padding: 12px 20px;
+  background: linear-gradient(
+    135deg,
+    #2563EB,
+    #1D4ED8
+  );
+  color: white;
   border: none;
   border-radius: 10px;
-  background: #2563EB;
-  color: white;
-  cursor: pointer;
-  font-weight: 600;
-  transition: .2s;
+  padding: 12px 20px;
+  transition: transform 0.2s ease,
+              box-shadow 0.2s ease;
 }
 
 .input-area button:hover {
-  background: #1D4ED8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.25);
 }
 
 button:hover {

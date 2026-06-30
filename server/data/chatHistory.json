@@ -6,13 +6,5 @@
   {
     "role": "assistant",
     "content": "Thanks for your message. BrightBooks Accounting can help with tax, bookkeeping, company registration, payroll, and SARS compliance."
-  },
-  {
-    "role": "user",
-    "content": "hi"
-  },
-  {
-    "role": "assistant",
-    "content": "Thanks for your message. BrightBooks Accounting can help with tax, bookkeeping, company registration, payroll, and SARS compliance."
   }
 ]
